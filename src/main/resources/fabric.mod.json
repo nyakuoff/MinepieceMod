@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "piecemod",
+  "version": "${version}",
+  "name": "PieceMod",
+  "description": "Boss timer HUD overlay for server boss spawn timers.",
+  "authors": [],
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.piecemod.PieceModClient"
+    ],
+    "modmenu": [
+      "com.piecemod.config.ModMenuImpl"
+    ]
+  },
+  "mixins": [
+    "piecemod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": ">=1.21.8 <=1.21.11",
+    "java": ">=21",
+    "fabric-api": "*",
+    "cloth-config": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
