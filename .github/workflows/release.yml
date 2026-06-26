@@ -1,0 +1,46 @@
+name: Build & Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0.0)'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Collect JARs
+        run: |
+          mkdir -p release-artifacts
+          # Copy the remapped mod jar (excludes -dev and -sources)
+          cp build/libs/piecemod-*.jar release-artifacts/ 2>/dev/null || true
+          find release-artifacts -name '*-sources.jar' -delete
+          find release-artifacts -name '*-dev.jar' -delete
+          ls -la release-artifacts/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          files: release-artifacts/*.jar
+          generate_release_notes: true
