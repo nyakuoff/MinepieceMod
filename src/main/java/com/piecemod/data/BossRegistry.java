@@ -27,7 +27,9 @@ public final class BossRegistry {
             new NavEntry("/thriller_bark", 16),  // verify slot
             new NavEntry("/sabaody",       16),  // verify slot
             new NavEntry("/fishmen",       16),  // Chasseur/Hommes-Poissons
-            new NavEntry("/dressrosa",     16)  // verify slot
+            new NavEntry("/dressrosa",     16),  // verify slot
+            new NavEntry("/komugi",        16),  // verify slot
+            new NavEntry("/whole_cake",    16)  // verify slot
     );
 
     private BossRegistry() {}
